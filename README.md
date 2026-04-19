@@ -10,6 +10,33 @@ From this folder, run:
 docker build -t setiawanheribambang/frankenphp-base:8.4 -f Dockerfile.base .
 ```
 
+## Publish to Docker Hub
+
+1. Log in to Docker Hub:
+
+```bash
+docker login
+```
+
+2. Build the image:
+
+```bash
+docker build -t setiawanheribambang/frankenphp-base:8.4 -f Dockerfile.base .
+```
+
+3. Push the image:
+
+```bash
+docker push setiawanheribambang/frankenphp-base:8.4
+```
+
+Optional: also tag it as `latest` and push that tag too:
+
+```bash
+docker tag setiawanheribambang/frankenphp-base:8.4 setiawanheribambang/frankenphp-base:latest
+docker push setiawanheribambang/frankenphp-base:latest
+```
+
 ## How to use
 
 Use this base image as the `FROM` image in your Laravel app Dockerfile.
@@ -47,3 +74,4 @@ Then open:
 
 - This base image is for runtime. Build frontend assets in a separate build stage (or CI) and copy only compiled assets into the final image.
 - Use environment variables and secrets from your orchestrator (`docker compose`, Kubernetes, etc.), not hardcoded values in the image.
+- HTTPS is supported by FrankenPHP. For production, it is usually best to terminate TLS with a reverse proxy or load balancer in front of the container. For local testing, you can also run it directly with certificates.
